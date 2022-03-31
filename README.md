@@ -1,1 +1,3 @@
-# Segunda clase de la cursada!
+# Repositorio de Gaston Rojas
+# Curso Backend de Coderhouse
+Entrega de desafio de clase 4

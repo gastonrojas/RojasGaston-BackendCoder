@@ -25,4 +25,16 @@ class Usuario {
     }
     return bookNames;
   }
+  getBooksName () {
+    return Object.values(this.libros[0])
+  }
 }
+
+const yo = new Usuario('Gaston ', 'Rojas', [{ nombre: 'Js', autor: 'Joo' }], ['Libra']);
+
+yo.getFullName();
+yo.addMascota('Kiya');
+yo.countMascotas();
+yo.addBook('Lala', 'Jorge');
+console.log(yo);
+console.log(yo.getBooksName());
