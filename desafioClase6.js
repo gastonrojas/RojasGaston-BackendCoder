@@ -1,4 +1,7 @@
 const fs = require('fs');
+const express = require('express');
+const app = express();
+const PORT = 8080;
 let arr = [];
 let id = 1;
 const escribirArchivo = async (route, arr) => {
@@ -39,6 +42,17 @@ class Contenedor {
       console.error(error);
     }
   }
+  async getRandom(){
+    try{
+      const array = await this.getAll() ?? []
+      const randomIndex = Math.floor(Math.random()*array.length)
+      console.log(randomIndex)
+      return this.getById(randomIndex+1)
+    }catch(err){
+      console.error(err)
+    }
+
+  }
 
   async deleteById(id) {
     try {
@@ -63,24 +77,28 @@ class Contenedor {
   }
 }
 
-const caja = new Contenedor('./products.txt');
+const products = new Contenedor('./products.txt');
 
-caja.save({
-  title: 'remera',
-  price: 2200,
-  thumbnail:
-    'http://d3ugyf2ht6aenh.cloudfront.net/stores/029/842/products/nirvana1-2d1bbed349758198e516166141022282-640-0.jpg',
+const server = app.listen(PORT, () => {
+  console.log(`Servidor http escuchando en el puerto ${server.address().port}`);
 });
 
-caja.save({
-  title: 'pantalon',
-  price: 6500,
-  thumbnail:
-    'https://media.revistagq.com/photos/5ca5eca84c7adb138100c90a/3:4/w_318,h_424,c_limit/el_pantalon_de_vestir_894893361.jpg',
+server.on('error', (error) => console.error(`Error en Servidor ${error}`));
+
+app.get('/products', async (req, res) => {
+  try {
+    const getAllProducts = await products.getAll();
+    res.send(getAllProducts);
+  } catch (err) {
+    console.log(err);
+  }
 });
-caja.save({
-  title: 'pantalon',
-  price: 6500,
-  thumbnail:
-    'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/bad40dcaeed245839d39ad03016115dd_9366/Gorra_de_Beisbol_Liviana_Logo_Metalico_Azul_GR9692_01_standard.jpg',
+
+app.get('/productoRandom', async (req, res) => {
+  try {
+    const randomProduct = await products.getRandom();
+    res.send(randomProduct);
+  } catch (err) {
+    console.log(err);
+  }
 });
