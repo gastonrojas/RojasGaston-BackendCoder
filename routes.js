@@ -1,19 +1,7 @@
-const express = require('express');
-const { route } = require('express/lib/application');
-const { Router } = express;
-const PORT = 8080;
-const app = express();
+const { Router } = require('express');
 const router = Router();
-const products = [];
-const server = app.listen(PORT, () => {
-  console.log(`Servidor http escuchando en el puerto ${server.address().port}`);
-});
-server.on('error', (error) => console.error(`Error en Servidor ${error}`));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use('/api/productos', router);
-app.use(express.static('public'));
+const products = [];
 
 router.get('/', (req, res) => {
   res.json(products);
@@ -41,3 +29,5 @@ router.delete('/:id', (req, res) => {
   const id = parseInt(req.params.id);
   products.splice(id - 1, 1);
 });
+
+module.exports = router;
