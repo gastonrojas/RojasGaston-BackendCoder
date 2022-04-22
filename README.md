@@ -1,3 +1,3 @@
 # Repositorio de Gaston Rojas
 # Curso Backend de Coderhouse
-Entrega de desafio de clase 4
+Entrega de desafio de clase X
