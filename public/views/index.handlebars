@@ -15,8 +15,8 @@
           <th>{{title}}</th>
           <td>{{price}}</td>
           <td>
-            <div>
-              <img src={{thumbnail}} alt='Product image' />
+            <div style='width: 80px; height: 80px;'>
+              <img style='width=100%; height: 100%' src={{thumbnail}} alt='Product image' />
             </div>
           </td>
         </tr>
@@ -24,12 +24,7 @@
     </tbody>
   </table>
 {{else}}
-  <div class='message'>
+  <div>
     <h2>No se encuentra ningun producto</h2>
-    <p>Agregue un producto</p>
   </div>
 {{/if}}
-
-<a href='/'>
-  <button>Ir a agregar producto</button>
-</a>
