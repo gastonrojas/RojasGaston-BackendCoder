@@ -1,21 +1,16 @@
 {
-  "name": "desafio",
+  "type": "module",
+  "name": "tpfinal",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/server.js",
+  "description": "Primera Entrega del Trabajo Practico Final - Coderhouse",
+  "main": "server.js",
   "scripts": {
     "start": "node ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Gaston Rojas",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^3.1.7",
-    "express": "^4.17.3",
-    "express-handlebars": "^6.0.5",
-    "handlebars": "^4.7.7",
-    "nodemon": "^2.0.15",
-    "pug": "^3.0.2",
-    "socket.io": "^4.5.0"
+    "express": "^4.17.3"
   }
 }
