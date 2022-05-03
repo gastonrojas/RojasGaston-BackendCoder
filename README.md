@@ -30,7 +30,7 @@ los datos por params.
 de la aplicacion de escritorio Postman, pudiendose constatar 
 las respuestas esperadas segun lo solicitado para la entrega.
 
--La comunicacion con el front es siempre con objetos en formato json
+- La comunicacion con el front es siempre con objetos en formato json
 tanto para los datos solicitados por get asi como con los demas metodos,
 indicando si fue exitosa la implementacion del metodo o si ocurrio algun 
 tipo de error.
