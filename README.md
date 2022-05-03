@@ -1,7 +1,7 @@
 # Repositorio de Gaston Rojas
 # Curso Backend de Coderhouse
 
-Primera entrega del trabajo practico final.
+**Primera entrega del trabajo practico final.**
 
 - Este stack utiliza node.js y express para crear los edpoints necesarios 
 para generar la arquitectura REST.
@@ -22,7 +22,7 @@ en ambos metodos con formato url encoded, que se pasan como parametros en las fu
 Si no se ingresa ningun valor en el POST se crea una caja misteriosa por defecto y en el caso
 del PUT queda con los valores originales.
 
--Para el POST en api/carritos/:id/productos se toma id por param
+- Para el POST en api/carritos/:id/productos se toma id por param
 y id_prod en el body. con los demas metodos se se toman
 los datos por params.
 
@@ -30,7 +30,7 @@ los datos por params.
 de la aplicacion de escritorio Postman, pudiendose constatar 
 las respuestas esperadas segun lo solicitado para la entrega.
 
--La comunicacion con el front es siempre con objetos en formato json
+- La comunicacion con el front es siempre con objetos en formato json
 tanto para los datos solicitados por get asi como con los demas metodos,
 indicando si fue exitosa la implementacion del metodo o si ocurrio algun 
 tipo de error.
