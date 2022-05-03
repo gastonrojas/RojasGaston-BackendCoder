@@ -1,7 +1,7 @@
 # Repositorio de Gaston Rojas
 # Curso Backend de Coderhouse
 
-Primera entrega del trabajo practico final.
+**Primera entrega del trabajo practico final.**
 
 - Este stack utiliza node.js y express para crear los edpoints necesarios 
 para generar la arquitectura REST.
