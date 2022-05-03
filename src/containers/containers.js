@@ -20,10 +20,10 @@ class Contenedor {
       let data = await this.getAll();
       data.push({
         id: !data.length ? 1 : parseInt(data[data.length - 1].id) + 1,
-        nombre: nombre,
-        descripcion: descripcion,
-        foto: foto,
-        precio: precio,
+        nombre: nombre || `caja`,
+        descripcion: descripcion || `misteriosa`,
+        foto: foto || `https://eldiadehoy.net/wp-content/uploads/2016/09/caja-simpsons.jpg`,
+        precio: precio || 45000,
         stock: 420,
       });
       await this.writeFile(data);

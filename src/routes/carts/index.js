@@ -6,14 +6,14 @@ export const cartsApi = new Router();
 
 cartsApi.post('/', async (req, res) => {
     const newCart = await carts.addNewCart();
-    res.json(newCart);
+    res.json(`Carrito creado exitosamente con id: ${newCart}`);
   });
   
   cartsApi.post('/:id/productos', async (req, res) => {
     const ID = req.params.id;
     const ID_PRODUCT = req.body.id_prod;
     const newCart = await carts.addToCart(ID, ID_PRODUCT);
-    if (newCart === true) res.sendStatus(200);else{
+    if (newCart === true) res.json({status: `200 OK`, desc: `Producto añandido exitosamente a su carrito.`});else{
       res.json({ error: '404 Not Found', desc: newCart });
     }
   });
@@ -33,7 +33,7 @@ cartsApi.post('/', async (req, res) => {
     const ID_PRODUCT = req.params.id_prod
     try {
       const cartProducts = await carts.deleteProductFromCart(ID, ID_PRODUCT);
-      cartProducts === true ? res.sendStatus(200) : res.json({error: `404 Not Found`, desc: cartProducts});
+      cartProducts === true ? res.json({status: `200 OK`, desc: `Producto elminado exitosamente`}) : res.json({error: `404 Not Found`, desc: cartProducts});
     } catch (error) {
       console.error(error);
     }
@@ -43,11 +43,8 @@ cartsApi.post('/', async (req, res) => {
     const ID = req.params.id
     try {
       const emptyCart = await carts.emptyCart(ID)
-      emptyCart === true ? res.sendStatus(200) : res.json({error: `404 Not Found`, desc: emptyCart})
+      emptyCart === true ? res.json({status: `200 OK`, desc: `Carrito vaciado exitosamente`}) : res.json({error: `404 Not Found`, desc: emptyCart})
     } catch (error) {
       console.error(error)
     }
   })
-
-
-  

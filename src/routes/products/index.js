@@ -17,7 +17,7 @@ productsApi.get('/', async (req, res, next) => {
 productsApi.get('/:id', async (req, res) => {
   try {
     const item = await products.getById(req.params.id);
-    item ? res.send(item) : res.sendStatus(404);
+    item ? res.json(item) : res.json({error: `404 Not Found`, desc: `Ups! No encontramos la producto que buscas...`});
   } catch (err) {
     console.error(err);
   }
@@ -31,7 +31,7 @@ productsApi.post('/', async (req, res) => {
   if (isAdmin) {
     try {
       products.save(NOMBRE, DESCRIPTION, URL_IMG, PRICE);
-      res.sendStatus(200);
+      res.json({ status: `200 OK`, desc: `Producto creado exitosamente =)` });
     } catch (err) {
       console.error(err);
     }
@@ -51,7 +51,7 @@ productsApi.put('/:id', async (req, res) => {
   if (isAdmin) {
     try {
       const update = await products.updateProduct(ID, NOMBRE, DESCRIPTION, URL_IMG, PRICE, STOCK);
-      update ? res.sendStatus(200) : res.sendStatus(404);
+      update ? res.json({status:`200 OK`, desc: `Producto modificado exitosamente =)`}) : res.json({error: `404 Not Found`, desc: `Ups! No encontramos el producto a modificar =O`});
     } catch (err) {
       console.error(err);
     }
@@ -64,7 +64,7 @@ productsApi.delete('/:id', async (req, res) => {
   if (isAdmin) {
     try {
       const isDeleted = await products.deleteById(req.params.id);
-      isDeleted ? res.sendStatus(200) : res.sendStatus(404);
+      isDeleted ? res.json({status: `200 OK`, desc: `Producto eliminado exitosamente`}) : res.json({error: 404, desc: `Ups! No encontramos el producto que busca eliminar...`});
     } catch (error) {
       console.error(error);
     }

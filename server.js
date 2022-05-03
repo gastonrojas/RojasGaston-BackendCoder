@@ -13,9 +13,8 @@ app.use('/api/productos', productsApi);
 app.use('/api/carritos', cartsApi)
 
 app.all('*', (req, res) => {
-  res.json({error: `404 Not Found`, desc: `No se encuentra la pagina`})
+  res.json({error: `404 Not Found`, desc: `Ups! No encontamos la pagina que buscas ='(`})
 })
-
 
 const connectedServer = app.listen(PORT, () => {
     console.log(`Servidor http escuchando en el puerto ${connectedServer.address().port}`);
