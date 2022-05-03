@@ -22,7 +22,7 @@ en ambos metodos con formato url encoded, que se pasan como parametros en las fu
 Si no se ingresa ningun valor en el POST se crea una caja misteriosa por defecto y en el caso
 del PUT queda con los valores originales.
 
--Para el POST en api/carritos/:id/productos se toma id por param
+- Para el POST en api/carritos/:id/productos se toma id por param
 y id_prod en el body. con los demas metodos se se toman
 los datos por params.
 
