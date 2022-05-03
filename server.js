@@ -1,16 +1,15 @@
 import express from 'express'
 
-import { productsApi, cartsApi } from './routes.js';
+import { productsApi, cartsApi } from './src/routes/index.js';
 
-const app = express()
+const app = express();
 
 const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/productos', productsApi)
-
+app.use('/api/productos', productsApi);
 app.use('/api/carritos', cartsApi)
 
 app.all('*', (req, res) => {
