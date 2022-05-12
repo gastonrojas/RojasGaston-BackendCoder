@@ -1,25 +1,75 @@
-import express from 'express'
+const express = require('express');
 
-import { productsApi, cartsApi } from './src/routes/index.js';
+const connectionConfig = require('./src/config/index.js');
+const knexMysql = require('knex')(connectionConfig.mysql2ConnectionConfig);
+const knexSqlite = require('knex')(connectionConfig.sqlite3ConnectionConfig);
+
+const { Server: HttpServer } = require('http');
+const { Server: Socket } = require('socket.io');
 
 const app = express();
+const httpServer = new HttpServer(app);
+const io = new Socket(httpServer);
 
-const PORT = process.env.PORT || 8080;
+io.on('connection', async (socket) => {
+  knexMysql
+    .select()
+    .table('productos')
+    .then((productos) => {
+      socket.emit('products', productos);
+    });
+  
+  knexSqlite
+    .select()
+    .table('messages')
+    .then((messages) => {
+      socket.emit('messages', messages);
+    });
+
+
+  socket.on('newProduct', async (newProduct) => {
+    await knexMysql('productos').insert(newProduct);
+    knexMysql
+      .select()
+      .table('productos')
+      .then((productos) => {
+        io.sockets.emit('products', productos);
+      });
+  });
+
+  socket.on('newMessage', async(newMwssage)=>{
+    await knexSqlite('messages').insert(newMwssage)
+    knexSqlite.select().table('messages').then(messages=>{
+      io.sockets.emit('messages', messages)
+    })
+  })
+
+});
+
+// getAllMessages().then((messages) => {
+//   socket.emit('messages', messages);
+// });
+
+// socket.on('newProduct', (newProduct) => {
+//   products.push(newProduct);
+//   io.sockets.emit('products', products);
+// });
+
+// socket.on('newMessage', (message) => {
+//   saveMessage(message).then((get) => {
+//     getAllMessages().then((messages) => {
+//       io.sockets.emit('messages', messages);
+//     });
+//   });
+// });
+// });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
-app.use('/api/productos', productsApi);
-app.use('/api/carritos', cartsApi)
+const connectedServer = httpServer.listen(8080, () => {
+  console.log(`Servidor http escuchando en el puerto ${connectedServer.address().port}`);
+});
 
-app.all('*', (req, res) => {
-  res.json({error: `404 Not Found`, desc: `Ups! No encontamos la pagina que buscas ='(`})
-})
-
-const connectedServer = app.listen(PORT, () => {
-    console.log(`Servidor http escuchando en el puerto ${connectedServer.address().port}`);
-  });
-  
-  connectedServer.on('error', (error) => console.log(`Error en servidor ${error}`));
-  
-  
+connectedServer.on('error', (error) => console.log(`Error en servidor ${error}`));
