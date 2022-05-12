@@ -37,8 +37,8 @@ io.on('connection', async (socket) => {
       });
   });
 
-  socket.on('newMessage', async(newMwssage)=>{
-    await knexSqlite('messages').insert(newMwssage)
+  socket.on('newMessage', async(newMessage)=>{
+    await knexSqlite('messages').insert(newMessage)
     knexSqlite.select().table('messages').then(messages=>{
       io.sockets.emit('messages', messages)
     })
@@ -46,23 +46,6 @@ io.on('connection', async (socket) => {
 
 });
 
-// getAllMessages().then((messages) => {
-//   socket.emit('messages', messages);
-// });
-
-// socket.on('newProduct', (newProduct) => {
-//   products.push(newProduct);
-//   io.sockets.emit('products', products);
-// });
-
-// socket.on('newMessage', (message) => {
-//   saveMessage(message).then((get) => {
-//     getAllMessages().then((messages) => {
-//       io.sockets.emit('messages', messages);
-//     });
-//   });
-// });
-// });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
