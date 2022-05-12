@@ -1,4 +1,4 @@
-const connectionConfig = require('./config/index.js')
+const connectionConfig = require('../../config/index.js')
 
 const knexSqlite = require('knex')(connectionConfig.sqlite3ConnectionConfig)
 

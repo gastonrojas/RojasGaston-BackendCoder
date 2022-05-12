@@ -8,7 +8,7 @@
  
   "main": "server.js",
   "scripts": {
-    "inicializar": "node crearTablas.js",
+    "inicializar": "node ./src/crearTablas/crearTablas.js",
     "start": "npm run inicializar && node server.js"
   },
  

@@ -1,5 +1,5 @@
-const createProductsTable = require('./src/crearTablaProductos.js')
-const createMessagesTable = require('./src/creartablaMensajes.js')
+const createProductsTable = require('./tablaProductos/crearTablaProductos')
+const createMessagesTable = require('./tablaMensajes/creartablaMensajes.js')
 
 const createTables = async () => {
     try {

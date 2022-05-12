@@ -1,4 +1,4 @@
-const connectionConfig = require('./config/index.js')
+const connectionConfig = require('../../config/index.js')
 
 const knexMysql = require('knex')(connectionConfig.mysql2ConnectionConfig)
 
