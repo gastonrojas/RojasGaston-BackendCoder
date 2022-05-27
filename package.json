@@ -1,42 +1,23 @@
 {
- 
+  "type": "module",
   "name": "tpfinal",
- 
-  "version": "1.0.0",
- 
-  "description": "Primera Entrega del Trabajo Practico Final - Coderhouse",
- 
+  "version": "2.0.0",
+  "description": "Segunda Entrega del Trabajo Practico Final - Coderhouse",
   "main": "server.js",
   "scripts": {
     "inicializar": "node ./src/crearTablas/crearTablas.js",
-    "start": "npm run inicializar && node server.js"
+    "start": "node server.js"
   },
- 
   "keywords": [],
- 
   "author": "Gaston Rojas",
- 
   "license": "ISC",
- 
   "dependencies": {
- 
-   
-  "express": "^4.17.3",
- 
-   
-  "knex": "^2.0.0",
- 
-   
-  "mysql": "^2.18.1",
- 
-   
-  "mysql2": "^2.3.3",
- 
-   
-  "socket.io": "^4.5.0",
- 
-   
-  "sqlite3": "^5.0.8"
- 
+    "current": "^0.1.1",
+    "express": "^4.17.3",
+    "firebase-admin": "^10.2.0",
+    "mongodb": "^4.6.0",
+    "mongoose": "^6.3.4",
+    "node": "^17.7.2",
+    "nvm": "^0.0.4"
   }
 }
