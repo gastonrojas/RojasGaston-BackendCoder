@@ -65,17 +65,23 @@ export default class FirestoreContainer {
     await this.collection.add({ productos: [] });
   }
   async addToCart(id, idProduct) {
+    const db = admin.firestore()
     const productosCollection = db.collection('productos');
     const snapshot = await productosCollection.get();
     const allProdcts = [];
     snapshot.forEach((doc) => allProdcts.push({ id: doc.id, ...doc.data() }));
 
     const productToAdd = allProdcts.find((prod) => prod.id === idProduct);
+    if(!productToAdd) return 'Ups... No encontramos el producto a agregar'
+
     const cart = await this.getById(id);
+    if(!cart) return 'Ups... No encontramos el carrito... :O'
 
     cart.productos.push(productToAdd);
 
     this.collection.doc(id).update({ productos: [...cart.productos] });
+
+    return true
   }
 
   async getCartProducts(id) {
@@ -92,13 +98,17 @@ export default class FirestoreContainer {
     if (productIndex > -1) {
       cartProducts = cartProducts.slice(0, productIndex).concat(cartProducts.slice(productIndex + 1));
       this.collection.doc(id).update({ productos: [...cartProducts] });
+      return true
     } else if (productIndex == -1) {
       return `Ups! No encontramos ese producto en tu carrito`;
     }
   }
 
   async emptyCart(id) {
+    const cartToEmpty = await this.getById(id)
+    if(!cartToEmpty) return 'Ups.. no encontramos ese carrito!! xD'
     this.collection.doc(id).update({ productos: [] });
+    return true
   }
 }
 

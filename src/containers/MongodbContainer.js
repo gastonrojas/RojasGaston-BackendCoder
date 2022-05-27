@@ -30,11 +30,15 @@ export default class MongodbContainer {
   }
 
   async deleteById(id) {
+    const toDelete = await this.getById(id)
+    if(!toDelete)return false
     await this.db.deleteOne({ id: id });
+    return true
   }
 
   async updateProduct(id, name, description, image, price, stock) {
     const toUpdate = await this.getById(id);
+    if(!toUpdate) return false
     await this.db.updateOne(
       { id: id },
       {
@@ -48,6 +52,7 @@ export default class MongodbContainer {
         },
       }
     );
+    return true
   }
 
   async deleteAll() {
@@ -63,22 +68,13 @@ export default class MongodbContainer {
   }
 
   async addToCart(id, idProduct) {
-    const productToAdd = await mongoose
-      .model(
-        'productos',
-        new mongoose.Schema({
-          id: Number,
-          nombre: String,
-          descripcion: String,
-          foto: String,
-          precio: Number,
-          stock: Number,
-        })
-      )
-      .findOne({ id: idProduct }, { _id: 0, __v: 0 });
+    const productsCollection = await mongoose.model('productos')
+  
+    const productToAdd = await  productsCollection.findOne({ id: idProduct }, { _id: 0, __v: 0 });
 
+    if(!productToAdd) return 'Ups... no encontramos el producto que deseas agregar...'
     const cartToUpdate = await this.getById(id);
-
+    if(!cartToUpdate) return 'Ups... no encontramos el carrito!!! oh por dias!'
     cartToUpdate.productos.push(productToAdd);
 
     await this.db.updateOne(
@@ -89,6 +85,7 @@ export default class MongodbContainer {
         },
       }
     );
+    return true
   }
 
   async getCartProducts(id) {
@@ -98,8 +95,9 @@ export default class MongodbContainer {
 
   async deleteProductFromCart(id, idProduct) {
     const cart = await this.getById(id);
+    
     if (!cart) return `Ups! No encontramos el carrito que buscas...`;
-    const productIndex = cart.productos.findIndex((prod) => prod.id === idProduct);
+    const productIndex = cart.productos.findIndex((prod) => prod.id == idProduct);
     if (productIndex > -1) {
       cart.productos = cart.productos.slice(0, productIndex).concat(cart.productos.slice(productIndex + 1));
     } else if (productIndex === -1) return `Ups! No encontramos ese producto en tu carrito`;
@@ -112,9 +110,12 @@ export default class MongodbContainer {
         },
       }
     );
+    return true
   }
 
   async emptyCart(id){
+    const cartToEmpty = await this.getById(id)
+    if(!cartToEmpty) return 'Ups... no encontramos ese carrito che'
     await this.db.updateOne(
         { id: id },
         {
@@ -123,29 +124,6 @@ export default class MongodbContainer {
           },
         }
       );
+      return true
   }
 }
-
-// await mongoose.connect(config.mongodb);
-
-// const products = new MongodbContainer(
-//   'productos',
-//   new mongoose.Schema({
-//     id: Number,
-//     nombre: String,
-//     descripcion: String,
-//     foto: String,
-//     precio: Number,
-//     stock: Number,
-//   })
-// );
-
-// const carts = new MongodbContainer(
-//   'carritos',
-//   new mongoose.Schema({
-//     id: Number,
-//     productos: Array,
-//   })
-// );
-
-
