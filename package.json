@@ -5,7 +5,6 @@
   "description": "Segunda Entrega del Trabajo Practico Final - Coderhouse",
   "main": "server.js",
   "scripts": {
-    "inicializar": "node ./src/crearTablas/crearTablas.js",
     "start": "node server.js"
   },
   "keywords": [],
